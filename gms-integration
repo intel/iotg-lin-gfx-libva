@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream d3b24b76dfde4daef9d463743971c7522a307092
+	va/x11: Don't crash the application if it does not have access to the DRI2 device.
