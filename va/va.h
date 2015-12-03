@@ -2826,6 +2826,24 @@ VAStatus vaBufferSetNumElements (
 #define VA_CODED_BUF_STATUS_CODEC_SPECIFIC              0x2000	
 
 /**
+ * \brief For encode abnormal status reporting. 
+ *
+ * This flag indicates that GPU goes into abnormal status in
+ * encoding, e.g. GPU hang.
+ */
+#define VA_CODED_BUF_STATUS_HW_TEAR_DOWN                0x4000	
+
+/**
+ * \brief For encode bad bitstream status reporting. 
+ *
+ * This flag indicates that HW encoder meets some issues that
+ * the content in the bitstreasm buffer is corrupted. Driver
+ * will report this flag to inform upper layer stack to restart
+ * the encoder.
+ */
+#define VA_CODED_BUF_STATUS_BAD_BITSTREAM               0x8000	
+
+/**
  * \brief The coded buffer segment contains a single NAL unit. 
  *
  * This flag indicates that the coded buffer segment contains a
