@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream 5a9a0d6aab5a06b7e9eff784ecfd6fcb041f036d
+	libva 1.6.2.pre2
