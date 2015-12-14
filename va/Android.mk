@@ -82,6 +82,7 @@ LOCAL_COPY_HEADERS := \
 	va_vpp.h \
 	va_backend_vpp.h \
 	va_enc_mpeg2.h \
+	va_enc_vp9.h
 
 LOCAL_COPY_HEADERS_TO := libva/va
 
