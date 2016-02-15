@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream 1f026dec91ce7d3d0efc9c572687ea31d49a8678
+	driver_name_map: add nouveau and radeon for Mesa Gallium
