@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream_staging 624838bf3851e48342bc4d80668a1daec81d4cf5
+	Add the missing entrypoints in vainfo list
