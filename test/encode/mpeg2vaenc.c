@@ -1373,17 +1373,15 @@ encode_picture(struct mpeg2enc_context *ctx,
     
     begin_picture(ctx, coded_order, display_order, picture_type);
 
-    if (1) {
-        /* upload YUV data to VA surface for next frame */
-        if (next_display_order >= ctx->num_pictures)
-            next_display_order = ctx->num_pictures - 1;
+    /* upload YUV data to VA surface for next frame */
+    if (next_display_order >= ctx->num_pictures)
+        next_display_order = ctx->num_pictures - 1;
 
-        fseek(ctx->ifp, ctx->frame_size * next_display_order, SEEK_SET);
-        ctx->upload_thread_value = pthread_create(&ctx->upload_thread_id,
-                                                  NULL,
-                                                  upload_yuv_to_surface,
-                                                  ctx);
-    }
+    fseek(ctx->ifp, ctx->frame_size * next_display_order, SEEK_SET);
+    ctx->upload_thread_value = pthread_create(&ctx->upload_thread_id,
+                                              NULL,
+                                              upload_yuv_to_surface,
+                                              ctx);
 
     do {
         mpeg2enc_destroy_buffers(ctx, &ctx->codedbuf_buf_id, 1);
