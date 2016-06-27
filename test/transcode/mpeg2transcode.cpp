@@ -3289,7 +3289,7 @@ static int encode_file()
     fclose(yuv_fp);
     fclose(avc_fp);
 
-
+    return 0;
 }
 int main(int argc,char **argv)
 {
