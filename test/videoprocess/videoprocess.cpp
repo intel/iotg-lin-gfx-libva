@@ -278,6 +278,10 @@ upload_yuv_frame_to_yuv_surface(FILE *fp,
 
         frame_size = surface_image.width * surface_image.height * 3 / 2;
         newImageBuffer = (unsigned char*)malloc(frame_size);
+        if (newImageBuffer == NULL) {
+           printf("Failed to allocate newImageBuffer !!! \n");
+           return VA_STATUS_ERROR_ALLOCATION_FAILED;
+        }
         do {
             n_items = fread(newImageBuffer, frame_size, 1, fp);
         } while (n_items != 1);
