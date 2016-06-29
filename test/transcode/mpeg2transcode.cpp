@@ -3305,8 +3305,8 @@ int main(int argc,char **argv)
     int major_ver, minor_ver;
     VAStatus va_status;
     int putsurface=0;
-	VAImageFormat image_format;
-	VAImage yuv_image;
+    VAImageFormat image_format;
+    VAImage yuv_image;
 
     if (argc > 1)
         putsurface=1;
@@ -3445,36 +3445,46 @@ int main(int argc,char **argv)
                                 0,0,WIN_WIDTH,WIN_HEIGHT,
                                 NULL,0,0);
 #endif
-		image_format.fourcc = VA_FOURCC_NV12;
-		image_format.byte_order = VA_LSB_FIRST;
-		image_format.bits_per_pixel = 12;
+        image_format.fourcc = VA_FOURCC_NV12;
+        image_format.byte_order = VA_LSB_FIRST;
+        image_format.bits_per_pixel = 12;
 
-		if( vaCreateImage(va_dpy, &image_format,
-							surface_width * zoom_out,surface_height * zoom_out,                         
-							&yuv_image) != VA_STATUS_SUCCESS )
-			printf("vaCreateImage error\n");
+        if( vaCreateImage(va_dpy, &image_format,
+            surface_width * zoom_out,surface_height * zoom_out,
+            &yuv_image) != VA_STATUS_SUCCESS )
+           printf("vaCreateImage error\n");
 
-		zoom_out_surface(va_dpy, surface_id, &zoom_surface_id);
+        zoom_out_surface(va_dpy, surface_id, &zoom_surface_id);
 
-		if (vaGetImage(va_dpy,zoom_surface_id,0,0,
-						surface_width * zoom_out,surface_height * zoom_out,
-						yuv_image.image_id) != VA_STATUS_SUCCESS)
-			printf("vaGetImage error\n");			
-		unsigned char *image_data = NULL;
-		va_status = vaMapBuffer(va_dpy,yuv_image.buf,(void **)&image_data);
-		CHECK_VASTATUS(va_status, "vaMapBuffer()");
+        if ( vaGetImage(va_dpy,zoom_surface_id,0,0,
+             surface_width * zoom_out,surface_height * zoom_out,
+             yuv_image.image_id) != VA_STATUS_SUCCESS)
+            printf("vaGetImage error\n");
 
-		FILE * image_fp = fopen("dump.yuv", "wb");
-		fwrite(image_data, surface_width * zoom_out * surface_height * zoom_out *3/2, 1, image_fp);
-		fclose(image_fp);
+        unsigned char *image_data = NULL;
+        va_status = vaMapBuffer(va_dpy,yuv_image.buf,(void **)&image_data);
+        CHECK_VASTATUS(va_status, "vaMapBuffer()");
 
-		/*va_status = vaPutSurface(va_dpy, zoom_out>1?zoom_surface_id:surface_id,Drawable(win),
+        FILE * image_fp = fopen("dump.yuv", "wb");
+        if ( image_fp == NULL ){
+            printf("Failed to open dump.yuv file!!\n");
+            vaDestroySurfaces(va_dpy,&surface_id,1);
+            vaDestroyConfig(va_dpy,config_id);
+            vaDestroyContext(va_dpy,context_id);
+            vaTerminate(va_dpy);
+            return -1;
+        }
+
+        fwrite(image_data, surface_width * zoom_out * surface_height * zoom_out *3/2, 1, image_fp);
+        fclose(image_fp);
+
+        /*va_status = vaPutSurface(va_dpy, zoom_out>1?zoom_surface_id:surface_id,Drawable(win),
                                 0,0,surface_width * zoom_out,surface_height * zoom_out,
                                 0,0,WIN_WIDTH,WIN_HEIGHT,
                                 NULL,0,0);*/
 #endif
        CHECK_VASTATUS(va_status, "vaPutSurface");
-		encode_file();
+       encode_file();
     }
     printf("press any key to exit\n");
     getchar();
