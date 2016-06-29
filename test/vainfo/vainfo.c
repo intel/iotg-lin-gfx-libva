@@ -78,10 +78,7 @@ static char * entrypoint_string(VAEntrypoint entrypoint)
             case VAEntrypointDeblocking:return "VAEntrypointDeblocking";
             case VAEntrypointEncSlice:return "VAEntrypointEncSlice";
             case VAEntrypointEncPicture:return "VAEntrypointEncPicture";
-            case VAEntrypointEncSliceLP:return "VAEntrypointEncSliceLP";
             case VAEntrypointVideoProc:return "VAEntrypointVideoProc";
-            case VAEntrypointEncFEIIntel:return "VAEntrypointEncFEIIntel";
-            case VAEntrypointStatisticsIntel:return "VAEntrypointStatisticsIntel";
             default:
                 break;
     }
