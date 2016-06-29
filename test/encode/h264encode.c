@@ -1907,6 +1907,7 @@ static int storage_task_queue(unsigned long long display_order, unsigned long lo
     struct storage_task_t *tmp;
 
     tmp = calloc(1, sizeof(struct storage_task_t));
+    assert(tmp);
     tmp->display_order = display_order;
     tmp->encode_order = encode_order;
 
