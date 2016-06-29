@@ -105,7 +105,10 @@ read_value_string(FILE *fp, const char* field_name, char* value)
         for (i = 0; strLine[i] && i < MAX_LEN; i++)
             if (strLine[i] != ' ') break;
 
-        if (strLine[i] == '#' || strLine[i] == '\n' || i == 1024)
+        if (i==1024)
+            continue;
+
+        if (strLine[i] == '#' || strLine[i] == '\n')
             continue;
 
         field = strtok(&strLine[i], ":");
