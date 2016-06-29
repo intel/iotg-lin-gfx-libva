@@ -392,6 +392,11 @@ store_yuv_surface_to_yv12_frame(FILE *fp,
         uint32_t u_size = y_size/4;
 
         newImageBuffer = (unsigned char*)malloc(y_size * 3 / 2);
+        if(newImageBuffer == NULL) {
+           vaUnmapBuffer(va_dpy, surface_image.buf);
+           vaDestroyImage(va_dpy, surface_image.image_id);
+           return VA_STATUS_ERROR_ALLOCATION_FAILED;
+        }
 
         /* stored as YV12 format */
         y_dst = newImageBuffer;
@@ -453,14 +458,13 @@ store_yuv_surface_to_yv12_frame(FILE *fp,
              n_items = fwrite(newImageBuffer, y_size * 3 / 2, 1, fp);
          } while (n_items != 1);
 
+         if (newImageBuffer){
+             free(newImageBuffer);
+             newImageBuffer = NULL;
+         }
      } else {
          printf("Not supported YUV surface fourcc !!! \n");
          return VA_STATUS_ERROR_INVALID_SURFACE;
-     }
-
-     if (newImageBuffer){
-         free(newImageBuffer);
-         newImageBuffer = NULL;
      }
 
      vaUnmapBuffer(va_dpy, surface_image.buf);
