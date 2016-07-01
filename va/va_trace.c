@@ -159,7 +159,6 @@ void va_TraceInit(VADisplay dpy)
 {
     char env_value[1024];
     unsigned short suffix = 0xffff & ((unsigned int)time(NULL));
-    int trace_index = 0;
     FILE *tmp;    
     struct trace_context *trace_ctx = calloc(sizeof(struct trace_context), 1);
 
@@ -2275,7 +2274,6 @@ static void va_TraceVAEncPackedHeaderParameterBufferType(
 {
     VAEncPackedHeaderParameterBuffer* p = (VAEncPackedHeaderParameterBuffer*)data;
     DPY2TRACECTX(dpy);
-    int i;
 
     if (!p)
         return;
@@ -2888,7 +2886,7 @@ static void va_TraceVAPictureParameterBufferVP9(
 {
     VADecPictureParameterBufferVP9 *p = (VADecPictureParameterBufferVP9 *)data;
     DPY2TRACECTX(dpy);
-    int i,j;
+    int i;
 
     va_TraceMsg(trace_ctx, "\t--VAPictureParameterBufferVP9\n");
 
