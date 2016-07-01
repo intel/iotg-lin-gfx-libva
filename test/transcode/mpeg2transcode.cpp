@@ -3211,8 +3211,12 @@ static int encode_file()
     int mode_value;
     struct timeval tpstart,tpend; 
     float  timeuse;
-	int frame_number = 1;
-	yuv_fp = fopen("dump.yuv","rb");
+    int frame_number = 1;
+    yuv_fp = fopen("dump.yuv","rb");
+    if ( yuv_fp == NULL ) {
+        printf("Can't open output dump.yuv file\n");
+        return -1;
+    }
 
     fseek(yuv_fp, 0l, SEEK_SET);
 
