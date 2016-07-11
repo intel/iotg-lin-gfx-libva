@@ -673,6 +673,12 @@ int main(int argc,char **argv)
         vpp_config_id = VA_INVALID_ID;
     }
 
+    for(i = 0; i< SURFACE_NUM; i++)
+        pthread_mutex_destroy(&surface_mutex[i]);
+
+    if (check_event)
+        pthread_mutex_destroy(&gmutex);
+
     vaDestroySurfaces(va_dpy,&surface_id[0],SURFACE_NUM);
     vaTerminate(va_dpy);
 
