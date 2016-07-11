@@ -717,7 +717,8 @@ blending_state_init(VABlendState *state)
     VAStatus va_status = VA_STATUS_SUCCESS;
     char blending_flags_str[MAX_LEN];
     float global_alpha = 0;
-    uint32_t min_luma, max_luma;
+    uint32_t min_luma = 0;
+    uint32_t max_luma = 0;
 
     /* read and check blend state */
     state->flags = 0;
