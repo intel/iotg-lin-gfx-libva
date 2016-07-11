@@ -898,6 +898,10 @@ int main(int argc, char *argv[])
     
     picture_width = atoi(argv[1]);
     picture_height = atoi(argv[2]);
+    if (picture_width <= 0 || picture_height <= 0) {
+        printf("picture_width and picture_height must greater than zero\n");
+        return -1;
+    }
     yuv_type = atoi(argv[5]);
     quality = atoi(argv[6]);
     
@@ -938,6 +942,7 @@ int main(int argc, char *argv[])
         default: {
             printf("Unsupported format:\n");
             show_help();
+            fclose(yuv_fp);
             break;
         }
         
