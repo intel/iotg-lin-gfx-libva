@@ -2002,16 +2002,8 @@ static void create_encode_pipe()
     VAEntrypoint entrypoints[5];
     int num_entrypoints,slice_entrypoint;
     VAConfigAttrib attrib[2];
-    int major_ver, minor_ver;
     VAStatus va_status;
-#if 0
-    x11_display = XOpenDisplay(":0.0");
-    assert(x11_display);
 
-    va_dpy = vaGetDisplay(x11_display);
-    va_status = vaInitialize(va_dpy, &major_ver, &minor_ver);
-    CHECK_VASTATUS(va_status, "vaInitialize");
-#endif
     vaQueryConfigEntrypoints(va_dpy, avcenc_context.profile, entrypoints, 
                              &num_entrypoints);
 
@@ -3208,9 +3200,7 @@ static int encode_file()
     int f;
     FILE *yuv_fp;
     FILE *avc_fp;
-    long file_size;
     int i_frame_only=1,i_p_frame_only=0;
-    int mode_value;
     struct timeval tpstart,tpend; 
     float  timeuse;
     int frame_number = 1;
@@ -3234,7 +3224,7 @@ static int encode_file()
     alloc_encode_resource(yuv_fp);
 
     enc_frame_number = 0;
-    for ( int f = 0; f < frame_number; ) {		//picture level loop
+    for ( f = 0; f < frame_number; ) {		//picture level loop
         static int const frame_type_pattern[][2] = { {SLICE_TYPE_I,1}, 
                                                      {SLICE_TYPE_P,3}, {SLICE_TYPE_P,3},{SLICE_TYPE_P,3},
                                                      {SLICE_TYPE_P,3}, {SLICE_TYPE_P,3},{SLICE_TYPE_P,3},

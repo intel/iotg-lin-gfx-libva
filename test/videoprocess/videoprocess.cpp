@@ -265,7 +265,7 @@ upload_yuv_frame_to_yuv_surface(FILE *fp,
     unsigned char *y_src, *u_src, *v_src;
     unsigned char *y_dst, *u_dst, *v_dst;
     void *surface_p = NULL;
-    uint32_t frame_size, i, row, col;
+    uint32_t frame_size, row, col;
     size_t n_items;
     unsigned char * newImageBuffer = NULL;
 
@@ -376,8 +376,8 @@ store_yuv_surface_to_yv12_frame(FILE *fp,
     void *surface_p = NULL;
     unsigned char *y_src, *u_src, *v_src;
     unsigned char *y_dst, *u_dst, *v_dst;
-    uint32_t frame_size, row, col;
-    int32_t  ret, n_items;
+    uint32_t row, col;
+    int32_t  n_items;
     unsigned char * newImageBuffer = NULL;
 
     va_status = vaDeriveImage(va_dpy, surface_id, &surface_image);

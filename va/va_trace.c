@@ -680,9 +680,6 @@ void va_TraceDestroyBuffer (
     unsigned int size;
     unsigned int num_elements;
     
-    VACodedBufferSegment *buf_list;
-    int i = 0;
-    
     DPY2TRACECTX(dpy);
 
     vaBufferInfo(dpy, trace_ctx->trace_context, buf_id, &type, &size, &num_elements);    
