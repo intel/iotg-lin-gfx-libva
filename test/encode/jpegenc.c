@@ -943,7 +943,7 @@ int main(int argc, char *argv[])
             printf("Unsupported format:\n");
             show_help();
             fclose(yuv_fp);
-            break;
+            return -1;
         }
         
     }
