@@ -1,0 +1,5 @@
+###
+### GMS integration
+###
+upstream d829a36cf71ee3bcbeff670fde4287070bb6000a
+	Bump libva to 1.8.2.pre1 for development
