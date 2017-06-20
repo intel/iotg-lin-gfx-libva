@@ -696,6 +696,20 @@ typedef enum
      VAConfigAttribEncTileSupport        = 31,
 
     /**
+     * \brief Encoding QP info block size attribute. Read-only.
+     * This attribute conveys the block sizes that underlying driver
+     * support for QP info for buffer #VAEncQpBuffer.
+     */
+     VAConfigAttribQpBlockSize            = 32,
+
+    /**
+     * \brief Frame Size Tolerance support. Read-only.
+     * This attribute exposes the capability of frame size tolerance
+     * for rate control.
+     */
+     VAConfigAttribFrameSizeToleranceSupport = 33,
+
+    /**
      * \brief Intel specific attributes start at 1001 
      */
     /**
