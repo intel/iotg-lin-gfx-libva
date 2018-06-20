@@ -22,7 +22,7 @@
 
 noinst_PROGRAMS = videoprocess
 
-INCLUDES = -I$(top_srcdir) \
+AM_CPPFLAGS = -I$(top_srcdir) \
            -I$(top_srcdir)/test/common \
            $(NULL)
 

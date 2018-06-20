@@ -22,7 +22,7 @@
 
 bin_PROGRAMS = mpeg2transcode
 
-INCLUDES = -I$(top_srcdir)
+AM_CPPFLAGS = -I$(top_srcdir)
 
 mpeg2transcode_SOURCES	= mpeg2transcode.cpp
 mpeg2transcode_CFLAGS	= -I$(top_srcdir) $(X11_CFLAGS)

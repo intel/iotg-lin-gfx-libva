@@ -85,7 +85,8 @@ AC_INIT([libva], [libva_version], [waldo.bastian@intel.com], libva)
 AC_CONFIG_SRCDIR([Makefile.am])
 AM_INIT_AUTOMAKE([dist-bzip2 no-dist-gzip])
 
-AM_CONFIG_HEADER([config.h])
+#AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 VA_API_MAJOR_VERSION=va_api_major_version

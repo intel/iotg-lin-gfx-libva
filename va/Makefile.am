@@ -22,7 +22,7 @@
 
 SUBDIRS =
 
-INCLUDES = \
+AM_CPPFLAGS = \
 	$(LIBVA_CFLAGS) \
 	-I$(top_srcdir) \
 	-I$(top_srcdir)/va/x11 \

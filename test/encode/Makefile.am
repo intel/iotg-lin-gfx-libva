@@ -22,7 +22,7 @@
 
 bin_PROGRAMS = avcenc mpeg2vaenc h264encode jpegenc
 
-INCLUDES = \
+AM_CPPFLAGS = \
        -Wall                           \
        -I$(top_srcdir)                 \
        -I$(top_srcdir)/va              \
