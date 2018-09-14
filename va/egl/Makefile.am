@@ -20,6 +20,8 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+CFLAGS += -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-all -pie -fpie -Wformat -Wformat-security -Werror=format-security
+
 AM_CPPFLAGS = \
 	-DLINUX			\
 	-I$(top_srcdir)		\

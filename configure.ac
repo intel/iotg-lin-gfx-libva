@@ -194,6 +194,13 @@ if test "$ac_cv_have_gnuc_visibility_attribute" = "yes"; then
               [Defined to 1 if GCC visibility attribute is supported])
 fi
 
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM(
+		  [[#if defined (__GNUC__) && (__GNUC__ > 4 || (__GNUC__== 4 && __GNUC_MINOR__ >= 9))
+		    GCC_VERSION_ABOVE_4_9="yes"
+		    #endif
+		  ]])],
+		  GCC_VERSION_ABOVE_4_9="no", GCC_VERSION_ABOVE_4_9="yes")
+AM_CONDITIONAL(GCC_VERSION_ABOVE_4_9, test "$GCC_VERSION_ABOVE_4_9" = "yes")
 
 # Check for DRM (mandatory)
 LIBDRM_VERSION=libdrm_version

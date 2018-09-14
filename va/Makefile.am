@@ -74,17 +74,36 @@ libva_ldflags = \
 	-Wl,-version-script,${srcdir}/libva.syms \
 	$(NULL)
 
+if GCC_VERSION_ABOVE_4_9
+libva_cflags = \
+	-Wall 			\
+	-D_FORTIFY_SOURCE=2 -fstack-protector-strong -pie -fpie -Wformat -Wformat-security -Werror=format-security	\
+	$(NULL)
+else
+libva_cflags = \
+	-Wall 			\
+	-D_FORTIFY_SOURCE=2 -fstack-protector -pie -fpie -Wformat -Wformat-security -Werror=format-security	\
+	$(NULL)
+endif
+
+libva_stack_all_cflags = \
+	-Wall 			\
+	-D_FORTIFY_SOURCE=2 -fstack-protector-all -pie -fpie -Wformat -Wformat-security -Werror=format-security	\
+	$(NULL)
+
 lib_LTLIBRARIES			= libva.la
 libvaincludedir			= ${includedir}/va
 libvainclude_HEADERS		= $(libva_source_h)
 noinst_HEADERS			= $(libva_source_h_priv)
 libva_la_SOURCES		= $(libva_source_c)
+libva_la_CFLAGS			= $(libva_cflags)
 libva_la_LDFLAGS		= $(libva_ldflags)
 libva_la_DEPENDENCIES		= libva.syms
 libva_la_LIBADD			= $(LIBVA_LIBS) -ldl
 
 lib_LTLIBRARIES			+= libva-tpi.la
 libva_tpi_la_SOURCES		= va_tpi.c
+libva_tpi_la_CFLAGS		= $(libva_stack_all_cflags)
 libva_tpi_la_LDFLAGS		= $(LDADD) -no-undefined
 libva_tpi_la_DEPENDENCIES	= libva.la 
 libva_tpi_la_LIBADD		= libva.la -ldl
@@ -93,6 +112,7 @@ if USE_DRM
 SUBDIRS				+= drm
 lib_LTLIBRARIES			+= libva-drm.la
 libva_drm_la_SOURCES		=
+libva_drm_la_CFLAGS		= $(libva_cflags)
 libva_drm_la_LDFLAGS		= $(LDADD)
 libva_drm_la_DEPENDENCIES	= libva.la drm/libva_drm.la
 libva_drm_la_LIBADD		= libva.la drm/libva_drm.la \
@@ -105,6 +125,7 @@ lib_LTLIBRARIES			+= libva-x11.la
 libva_source_h			+= va_x11.h
 libva_x11_la_SOURCES		= 
 libva_x11_la_LDFLAGS		= $(LDADD)
+libva_x11_la_CFLAGS		= $(libva_cflags)
 libva_x11_la_DEPENDENCIES	= libva.la x11/libva_x11.la
 libva_x11_la_LIBADD		= libva.la x11/libva_x11.la \
 	$(LIBVA_LIBS) $(X11_LIBS) $(XEXT_LIBS) $(XFIXES_LIBS) $(DRM_LIBS) -ldl
@@ -114,6 +135,7 @@ if USE_GLX
 SUBDIRS				+= glx
 lib_LTLIBRARIES			+= libva-glx.la
 libva_glx_la_SOURCES		=
+libva_glx_la_CFLAGS		= $(libva_cflags)
 libva_glx_la_LDFLAGS		= $(LDADD)
 libva_glx_la_DEPENDENCIES	= libva.la glx/libva_glx.la libva-x11.la
 libva_glx_la_LIBADD		= libva.la glx/libva_glx.la libva-x11.la \
@@ -124,6 +146,7 @@ if USE_EGL
 SUBDIRS				+= egl
 lib_LTLIBRARIES			+= libva-egl.la
 libva_egl_la_SOURCES		=
+libva_egl_la_CFLAGS		= $(libva_cflags)
 libva_egl_la_LDFLAGS		= $(LDADD)
 libva_egl_la_DEPENDENCIES	= libva.la egl/libva_egl.la 
 libva_egl_la_LIBADD		= libva.la egl/libva_egl.la \
@@ -134,6 +157,7 @@ if USE_WAYLAND
 SUBDIRS				+= wayland
 lib_LTLIBRARIES			+= libva-wayland.la
 libva_wayland_la_SOURCES	=
+libva_wayland_la_CFLAGS		= $(libva_cflags)
 libva_wayland_la_LDFLAGS	= $(LDADD)
 libva_wayland_la_DEPENDENCIES	= libva.la wayland/libva_wayland.la
 libva_wayland_la_LIBADD		= libva.la wayland/libva_wayland.la \
