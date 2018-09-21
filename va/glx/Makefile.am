@@ -20,6 +20,12 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 # SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+if GCC_VERSION_ABOVE_4_9
+CFLAGS += -Wall -D_FORTIFY_SOURCE=2 -fstack-protector-all -pie -fpie -Wformat -Wformat-security -Werror=format-security
+else
+CFLAGS += -Wall -D_FORTIFY_SOURCE=2 -fstack-protector -pie -fpie -Wformat -Wformat-security -Werror=format-security
+endif
+
 INCLUDES = \
 	-DLINUX			\
 	-I$(top_srcdir)		\
