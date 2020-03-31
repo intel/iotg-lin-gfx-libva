@@ -272,15 +272,18 @@ if test "$enable_wayland" = "yes"; then
     PKG_CHECK_MODULES([WAYLAND], [wayland-client >= wayland_api_version],
         [USE_WAYLAND="yes"], [:])
     if test "$USE_WAYLAND" = "yes"; then
+	PKG_CHECK_MODULES([WAYLAND_SCANNER], [wayland-scanner],
+			  WAYLAND_SCANNER=`$PKG_CONFIG --variable=prefix wayland-scanner`
+			  WAYAND_SCANNER='')
+	PKG_CHECK_EXISTS([wayland-scanner >= 1.15]
+			  AC_SUBST(SCANNER_ARG, 'private-code'),
+			  AC_SUBST(SCANNER_ARG, 'code'))
+
         AC_DEFINE([HAVE_VA_WAYLAND], [1],
                   [Defined to 1 if VA/Wayland API is built])
     fi
 fi
 AM_CONDITIONAL(USE_WAYLAND, test "$USE_WAYLAND" = "yes")
-
-m4_ifdef([WAYLAND_SCANNER_RULES],
-    [WAYLAND_SCANNER_RULES(['$(top_builddir)/va/wayland/protocol'])],
-    [wayland_scanner_rules=""; AC_SUBST(wayland_scanner_rules)])
 
 # We only need the headers, we don't link against the DRM libraries
 LIBVA_CFLAGS="$DRM_CFLAGS"
@@ -322,7 +325,6 @@ AC_OUTPUT([
     va/glx/Makefile
     va/va_version.h
     va/wayland/Makefile
-    va/wayland/protocol/Makefile
     va/x11/Makefile
 ])
 

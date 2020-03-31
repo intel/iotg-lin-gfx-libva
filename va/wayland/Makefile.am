@@ -27,8 +27,6 @@ else
 CFLAGS += -Wall -D_FORTIFY_SOURCE=2 -fstack-protector -pie -fpie -Wformat -Wformat-security -Werror=format-security
 endif
 
-SUBDIRS = protocol
-
 AM_CPPFLAGS = \
 	-DLINUX			\
 	-I$(top_srcdir)		\
@@ -55,6 +53,14 @@ source_h_priv = \
 	va_wayland_private.h	\
 	$(NULL)
 
+protocol_source_export_c = \
+	wayland-drm-client-protocol-export.c	\
+	$(NULL)
+
+protocol_source_c = \
+	wayland-drm-client-protocol.c	\
+	$(NULL)
+
 protocol_source_h = \
 	wayland-drm-client-protocol.h	\
 	$(NULL)
@@ -62,12 +68,19 @@ protocol_source_h = \
 noinst_LTLIBRARIES		= libva_wayland.la
 libva_waylandincludedir		= ${includedir}/va
 libva_waylandinclude_HEADERS	= $(source_h)
-libva_wayland_la_SOURCES	= $(source_c) $(protocol_source_h)
+libva_wayland_la_SOURCES	= $(source_c) $(protocol_source_c)
 noinst_HEADERS			= $(source_h_priv)
 
 # Wayland protocol
 va_wayland_drm.c: $(protocol_source_h)
-@wayland_scanner_rules@
+
+EXTRA_DIST = \
+       wayland-drm.xml \
+       $(NLL)
+
+## @wayland_scanner_rules@
+
+BUILT_SOURCES = $(protocol_source_h) $(protocol_source_c) $(protocol_source_export_c)
 
 # Extra clean files so that maintainer-clean removes *everything*
 MAINTAINERCLEANFILES = Makefile.in
